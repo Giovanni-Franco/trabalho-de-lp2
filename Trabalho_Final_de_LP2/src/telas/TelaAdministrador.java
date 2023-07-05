@@ -1,11 +1,14 @@
 package telas;
 
+import java.awt.Font;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
-import javax.swing.SpringLayout;
-import javax.swing.JToolBar;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JMenu;
+import javax.swing.SwingUtilities;
 
 public class TelaAdministrador extends JPanel {
 
@@ -14,33 +17,55 @@ public class TelaAdministrador extends JPanel {
 	 */
 	public TelaAdministrador() {
 		setSize(800, 400);
-		SpringLayout springLayout = new SpringLayout();
-		setLayout(springLayout);
+		setLayout(null);
 		
-		JToolBar toolBar = new JToolBar();
-		springLayout.putConstraint(SpringLayout.NORTH, toolBar, 0, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.WEST, toolBar, 0, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.EAST, toolBar, 800, SpringLayout.WEST, this);
-		add(toolBar);
+		JButton btnCadastrarAtracao = new JButton("CADASTRAR ATRAÇÃO");
+		btnCadastrarAtracao.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnCadastrarAtracao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Window window = SwingUtilities.getWindowAncestor(TelaAdministrador.this);
+    	        if (window != null) {
+    	            window.dispose();
+    	        }
+				CadastroAtracao c = new CadastroAtracao();
+				c.setVisible(true);
+			}
+		});
+		btnCadastrarAtracao.setBounds(234, 95, 328, 81);
+		add(btnCadastrarAtracao);
 		
-		JMenuBar menuBar = new JMenuBar();
-		toolBar.add(menuBar);
+		JButton btnBuscarAtracao = new JButton("BUSCAR ATRAÇÃO");
+		btnBuscarAtracao.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnBuscarAtracao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Window window = SwingUtilities.getWindowAncestor(TelaAdministrador.this);
+    	        if (window != null) {
+    	            window.dispose();
+    	        }
+				BuscaAtracao c = new BuscaAtracao();
+				c.setVisible(true);
+			}
+		});
+		btnBuscarAtracao.setBounds(234, 212, 328, 81);
+		add(btnBuscarAtracao);
 		
-		JMenu mnNewMenu = new JMenu("Atração");
-		menuBar.add(mnNewMenu);
+		JInternalFrame internalFrame = new JInternalFrame("administrador");
+		internalFrame.setBounds(0, 0, 800, 33);
+		add(internalFrame);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Cadastrar");
-		mnNewMenu.add(mntmNewMenuItem);
-		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Buscar");
-		mnNewMenu.add(mntmNewMenuItem_1);
-		
-		JPanel panel = new JPanel();
-		springLayout.putConstraint(SpringLayout.NORTH, panel, -10, SpringLayout.SOUTH, this);
-		springLayout.putConstraint(SpringLayout.WEST, panel, -10, SpringLayout.EAST, toolBar);
-		springLayout.putConstraint(SpringLayout.SOUTH, panel, 0, SpringLayout.SOUTH, this);
-		springLayout.putConstraint(SpringLayout.EAST, panel, 0, SpringLayout.EAST, toolBar);
-		add(panel);
-
+		JButton btnSair = new JButton("Sair");
+		btnSair.setBounds(685, 44, 59, 21);
+		add(btnSair);
+		btnSair.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		 Window window = SwingUtilities.getWindowAncestor(TelaAdministrador.this);
+        	        if (window != null) {
+        	            window.dispose();
+        	        }
+        		ParqueDiversao p = new ParqueDiversao();
+        		p.setVisible(true);
+        	}
+        });
+		internalFrame.setVisible(true);
+		}		 
 	}
-}

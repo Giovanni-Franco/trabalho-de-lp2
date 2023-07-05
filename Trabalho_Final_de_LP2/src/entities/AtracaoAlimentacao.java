@@ -10,14 +10,14 @@ public class AtracaoAlimentacao extends Atracao{
 			return super.cadastrar();
 		}
 	@Override
-		public String deletar(int id) {
+		public String deletar(int index) {
 			// TODO Auto-generated method stub
-			return super.deletar(id);
+			return super.deletar(index);
 		}
 	
 	@Override
-		public String detalhar(int id) {
+		public Atracao buscar(Atracao a) {
 			// TODO Auto-generated method stub
-			return super.detalhar(id);
+			return super.buscar(a);
 		}
 }

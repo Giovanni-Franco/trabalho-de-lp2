@@ -1,23 +1,24 @@
 package entities;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import dados.Arquivo;
 
 public class Atracao {
 	private Integer id;
 	private int capacidade;
 	private String nome;
-	private int tipo;
-	private List <Integer> dependencias = new ArrayList<>();
+	private String tipo;
 	
 	
-	public Atracao(Integer id, int capacidade, String nome, int tipo, List<Integer> dependencias) {
+	
+	public Atracao(Integer id, int capacidade, String nome, String tipo) {
 		super();
 		this.id = id;
 		this.capacidade = capacidade;
 		this.nome = nome;
 		this.tipo = tipo;
-		this.dependencias = dependencias;
+		
 	}
 
 	public Atracao(){
@@ -25,23 +26,42 @@ public class Atracao {
 	}
 	
 	public String cadastrar() {
-		return"";
+		if(Arquivo.salvarAtracao(toString()))
+			return "Atração: "+nome+"\n"
+				+"Capacidade: "+capacidade+" lugares\n"
+				+"CADASTRADO COM SUCESSO!";
+		return "FALHA AO CADASTRAR";
+		
 	}	
 	
-	public String detalhar(int id) {
-		return"";
+	@Override
+	public String toString() {
+		return id + ";" + capacidade + ";" + nome + ";" + tipo
+				+ ";";
+	}
+
+	public Atracao buscar(Atracao a) {
+		List<Atracao> atracoes = Arquivo.lerAtracoes();
+		for (Atracao item : atracoes) {
+            if (item.getId() == a.id) {
+                return item;
+            }
+        }
+        return null; // Retorna null se o item não for encontrad
+        
+    }
+	
+	public String deletar(int index) {
+		List<Atracao> atracoes = Arquivo.lerAtracoes();
+		Atracao a1 = atracoes.get(index);
+		if(atracoes.remove(a1)) {
+			Arquivo.deletarAtracao(atracoes);
+			return "Removido com sucesso";
+		}
+		return "Falha ao remover";
 	}
 	
-	public String deletar(int id) {
-		return"";
-	}
-	
-	public void adicionarDependencia(Integer id) {
-		getDependencias().add(id);
-	}
-	public void removerDependencia(Integer id) {
-		getDependencias().remove(id);
-	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -66,21 +86,14 @@ public class Atracao {
 		this.nome = nome;
 	}
 	
-	public int getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 	
-	public void setTipo(int tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	
-	public List <Integer> getDependencias() {
-		return dependencias;
-	}
-	
-	public void setDependencias(List<Integer> dependencias) {
-		this.dependencias = dependencias;
-	}
+
 
 	
 	
